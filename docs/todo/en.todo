@@ -1,0 +1,20 @@
+Demands:
+ ✔ log event @done (18-06-23 19:36)
+ ✔ could be used either with or without the context @done (18-06-23 19:36)
+ ✔ able to format dynamic data (printf) @done (18-06-23 19:37)
+ ☐ data serialization (such as: errors, dates, symbols, buffers)
+ ☐ export data from within the application
+ ☐ could be embedded into the request
+ ☐ could be embedded into custom error
+ ☐ has embedded handler for unhandled errors
+ ☐ text colorization support (prohibited in logger itself; the external plugin should do the work)
+ ✔ log messages filtering by log level @done (18-06-23 19:37)
+ ☐ callback supports to have ability to debug log by its levels
+ ☐ profiling
+ const profiler = log.profile('getting user')
+ profiler.stop() // info: getting user: 30 ms
+
+Anti patterns (should not to be embedded into the logger):
+* colorization
+* log rotation
+* clastering
