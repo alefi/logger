@@ -39,7 +39,7 @@ npm install @alefi/logger --save
 
 ### Configuration
 The logger has preconfigured default values and do not requires any mandatory settings to be provided while configured. However, any of these values could be overridden.
-For details see [config/default.json.](config/default.json)
+For details see [config/default.json.](../src/config/default.json)
 
 ### Test
 ```bash
