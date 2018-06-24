@@ -3,6 +3,9 @@
 .nyc_output
 .travis.yml
 
+#documentation
+docs
+
 #editor settings
 .idea
 .project
