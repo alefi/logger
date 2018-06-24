@@ -1,0 +1,21 @@
+#build tools
+.jenkins.yml
+.nyc_output
+.travis.yml
+
+#editor settings
+.idea
+.project
+.settings
+.tern-project
+
+#logging
+.log
+
+#modules and repositories
+.DS_Store
+node_modules
+package-lock.json
+
+#tests
+coverage
