@@ -26,5 +26,6 @@ tools
 
 #tests
 .nycrc
+.travis*
 coverage
 test
