@@ -136,21 +136,23 @@ class Logger {
      * @private
      */
     _constructMeta ({ meta }) {
+        const _meta = Object.assign({}, meta);
+
         if ( !_.isEmpty(this.ctx) ) {
-            meta.ctx = this.ctx;
+            _meta.ctx = this.ctx;
         }
 
         if ( !_.isEmpty(this.tags) ) {
-            meta.tags = this.tags;
+            _meta.tags = this.tags;
         }
 
-        const hasMeta = !_.isEmpty(meta);
+        const hasMeta = !_.isEmpty(_meta);
         let shapedMeta = '';
 
         if (hasMeta && _config.prettyPrint) {
-            shapedMeta = stringify(meta);
+            shapedMeta = stringify(_meta);
         } else if (hasMeta) {
-            shapedMeta = inspect(meta);
+            shapedMeta = inspect(_meta);
         }
 
         return shapedMeta;
