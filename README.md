@@ -6,7 +6,7 @@ Currently logger has only console transport but has ability to be extended via p
 
 Documentation available in following languages:
 
-- [English](docs/en.md)
-- [Русский](docs/ru.md)
+- [English](https://github.com/alefi/logger/blob/master/docs/en.md)
+- [Русский](https://github.com/alefi/logger/blob/master/docs/ru.md)
 
-[Changelog](CHANGELOG.md)
+[Changelog](https://github.com/alefi/logger/blob/master/CHANGELOG.md)

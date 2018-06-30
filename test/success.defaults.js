@@ -63,6 +63,13 @@ test('Should appends the tags', t => {
     t.true(logSpy.calledOnce);
 });
 
+test('Should create and store nested logger before the parent one', t => {
+    const { ctx } = t.context;
+
+    new Logger('entity.item').context(ctx);
+    t.notThrows(() => new Logger('entity').context(ctx));
+});
+
 test('Should creates child logger and inherits at least parent\'s context and tags', t => {
     const { errorSpy, logSpy, message, meta } = t.context;
     const log = new Logger('some test controller')
@@ -81,12 +88,22 @@ test('Should creates child logger and inherits at least parent\'s context and ta
     t.true(logSpy.calledOnce);
 });
 
-test('Should log error object', t => {
+test('Should log error object using generic way', t => {
     const {errorSpy, logSpy } = t.context;
     const log = new Logger('some test controller').context({}, true);
     const testError = new Error('test error');
 
     t.notThrows(() => log.error(testError.message, testError));
+    t.true(errorSpy.calledOnce);
+    t.true(logSpy.notCalled);
+});
+
+test('Should log error object using logger\'s throw method and then throw an error', t => {
+    const {errorSpy, logSpy } = t.context;
+    const log = new Logger('some test controller');
+    const typeError = new TypeError('test error');
+
+    t.throws(() => log.throw(typeError), TypeError);
     t.true(errorSpy.calledOnce);
     t.true(logSpy.notCalled);
 });

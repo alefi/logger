@@ -1,6 +1,7 @@
 {
   "dateFormat": "DD.MM.YYYY HH:mm:ss.SSS",
   "exitOnError": false,
+  "errorPropertiesToSerialize": "code, name, message, stack",
   "level": "info",
   "logFormat": "${ timestamp } ${ ctx.requestId } - ${ level } [${ label }] ${ message } ${ meta }",
   "prettyPrint": false,

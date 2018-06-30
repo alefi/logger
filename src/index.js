@@ -46,6 +46,7 @@ class Logger {
         }
 
         _config = _.defaults(options, defaultConfig);
+        _config.errorPropertiesToSerialize = _.words(_config.errorPropertiesToSerialize);
 
         if (_config.dateFormat || _config.useTimezone) {
             _config.getTimestamp = () => {
@@ -74,7 +75,8 @@ class Logger {
         checkConfig();
         checkLabel(label);
 
-        const preconfigured = _.get(configured.containers, label);
+        const key = Symbol.for(label);
+        const preconfigured = _.get(configured.containers, [ key ]);
 
         if (preconfigured) {
             return preconfigured;
@@ -110,8 +112,9 @@ class Logger {
         this.format = _.template(_config.logFormat);
         this.label = Logger._constructLabel(label, parentProps);
         this.tags = parentProps.tags || [];
+        this.throw = this._throw.bind(this);
 
-        _.set(configured.containers, label, this);
+        _.set(configured.containers, [ key ], this);
     }
 
     /**
@@ -136,21 +139,23 @@ class Logger {
      * @private
      */
     _constructMeta ({ meta }) {
+        const _meta = Object.assign({}, meta);
+
         if ( !_.isEmpty(this.ctx) ) {
-            meta.ctx = this.ctx;
+            _meta.ctx = this.ctx;
         }
 
         if ( !_.isEmpty(this.tags) ) {
-            meta.tags = this.tags;
+            _meta.tags = this.tags;
         }
 
-        const hasMeta = !_.isEmpty(meta);
+        const hasMeta = !_.isEmpty(_meta);
         let shapedMeta = '';
 
         if (hasMeta && _config.prettyPrint) {
-            shapedMeta = stringify(meta);
+            shapedMeta = stringify(_meta);
         } else if (hasMeta) {
-            shapedMeta = inspect(meta);
+            shapedMeta = inspect(_meta);
         }
 
         return shapedMeta;
@@ -232,6 +237,25 @@ class Logger {
             .value();
 
         return this;
+    }
+
+    /**
+     * @param  {Error} error That should be logged and throw on
+     * @private
+     */
+    _throw (error) {
+        assert(error instanceof Error, 'object should be an Error instance');
+
+        const { level = 'error', message } = error;
+        const meta = { error: _.pick(error, _config.errorPropertiesToSerialize) };
+
+        this._log({
+            level,
+            message,
+            meta
+        });
+
+        throw error;
     }
 }
 
