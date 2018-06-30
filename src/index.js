@@ -74,7 +74,8 @@ class Logger {
         checkConfig();
         checkLabel(label);
 
-        const preconfigured = _.get(configured.containers, label);
+        const key = Symbol.for(label);
+        const preconfigured = _.get(configured.containers, [ key ]);
 
         if (preconfigured) {
             return preconfigured;
@@ -111,7 +112,7 @@ class Logger {
         this.label = Logger._constructLabel(label, parentProps);
         this.tags = parentProps.tags || [];
 
-        _.set(configured.containers, label, this);
+        _.set(configured.containers, [ key ], this);
     }
 
     /**
