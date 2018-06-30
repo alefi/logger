@@ -46,6 +46,7 @@ class Logger {
         }
 
         _config = _.defaults(options, defaultConfig);
+        _config.errorPropertiesToSerialize = _.words(_config.errorPropertiesToSerialize);
 
         if (_config.dateFormat || _config.useTimezone) {
             _config.getTimestamp = () => {
@@ -111,6 +112,7 @@ class Logger {
         this.format = _.template(_config.logFormat);
         this.label = Logger._constructLabel(label, parentProps);
         this.tags = parentProps.tags || [];
+        this.throw = this._throw.bind(this);
 
         _.set(configured.containers, [ key ], this);
     }
@@ -235,6 +237,25 @@ class Logger {
             .value();
 
         return this;
+    }
+
+    /**
+     * @param  {Error} error That should be logged and throw on
+     * @private
+     */
+    _throw (error) {
+        assert(error instanceof Error, 'object should be an Error instance');
+
+        const { level = 'error', message } = error;
+        const meta = { error: _.pick(error, _config.errorPropertiesToSerialize) };
+
+        this._log({
+            level,
+            message,
+            meta
+        });
+
+        throw error;
     }
 }
 
