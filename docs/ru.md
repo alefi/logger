@@ -33,6 +33,17 @@ log.debug('test debugging message');
 // 23.06.2018 23:06:17.357  - debug [logger::ctrl.get.child] test debugging message {"tags":["example","parent","child","smth else"]}
 ```
 
+Проброс ошибки с логированием:
+```javascript
+const Logger = require('./logger');
+
+const log = new Logger('ctrl');
+const typeError = new TypeError('smth bad happened');
+
+log.throw(typeError);
+// 30.06.2018 10:26:48.713  - error [logger::ctrl] smth bad happened {"error":{"name":"TypeError","message":"smth bad happened","stack":"TypeError: smth bad happened\n    at Object.<anonymous> (<...>/logger/tools/app.js:8:19)\n    at Module._compile (module.js:652:30)\n<...>"}}
+```
+
 ### Установка
 ```bash
 npm install @alefi/logger --save
