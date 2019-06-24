@@ -1,11 +1,13 @@
 # Logger
 
-### Features
+## Features
+
 The logger requires to be configured once <b>prior to first instance being created</b>. Chaining supported.
 
 [The wrapper example that could be used in application.](../tools/wrapper/logger.js)
 
 Logger creation with adding context and tags that could be used when filtering log messages later:
+
 ```javascript
 const Logger = require('./logger');
 
@@ -18,6 +20,7 @@ log.debug('test debugging message');
 ```
 
 The child logger creation with its own tag being added:
+
 ```javascript
 const Logger = require('./logger');
 
@@ -33,6 +36,7 @@ log.debug('test debugging message');
 ```
 
 Log an error and throw on:
+
 ```javascript
 const Logger = require('./logger');
 
@@ -44,17 +48,21 @@ log.throw(typeError);
 ```
 
 ### Installation
+
 ```bash
 npm install @alefi/logger --save
 ```
 
 ### Configuration
+
 The logger has preconfigured default values and do not requires any mandatory settings to be provided while configured. However, any of these values could be overridden.
 For details see [config/default.json.](../src/config/default.json)
 
 ### Test
+
 ```bash
 npm install
 npm test
 ```
+
 [Todo](todo/en.todo)
