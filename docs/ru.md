@@ -1,6 +1,7 @@
 # Logger
 
 ### Особенности
+
 Логгер требует однократного конфигурирования <b>до создания первого экземпляра</b>. Поддерживается chaining.
 
 [Пример обертки для использования логгера в коде приложения.](../tools/wrapper/logger.js)
@@ -19,6 +20,7 @@ log.debug('test debugging message');
 ```
 
 Создание дочернего логгера с добавлением собственного тэга:
+
 ```javascript
 const Logger = require('./logger');
 
@@ -34,6 +36,7 @@ log.debug('test debugging message');
 ```
 
 Проброс ошибки с логированием:
+
 ```javascript
 const Logger = require('./logger');
 
@@ -45,17 +48,21 @@ log.throw(typeError);
 ```
 
 ### Установка
+
 ```bash
 npm install @alefi/logger --save
 ```
 
 ### Конфигурация
+
 Логгер имеет предопределенные настройки по-умолчанию и явно не требует указания каких-либо параметров. Однако, любой из параметров может быть переопределен.
 Подробнее см. [config/default.json.](../src/config/default.json)
 
 ### Тестирование
+
 ```bash
 npm install
 npm test
 ```
+
 [Todo](todo/ru.todo)
