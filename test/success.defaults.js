@@ -3,7 +3,7 @@
 const Logger = require('..');
 const sinon = require('sinon');
 const test = require('ava');
-const uuidV4 = require('uuid/v4');
+const uuid = require('uuid');
 
 test.before(t => {
     t.context.sandbox = sinon.createSandbox();
@@ -14,7 +14,7 @@ test.before(t => {
 
 test.beforeEach(t => {
     t.context.ctx = {
-        requestId: uuidV4(),
+        requestId: uuid.v4(),
         source: __filename
     };
     t.context.message = 'smth happened';
@@ -103,7 +103,7 @@ test.serial('Should log error object using logger\'s throw method and then throw
     const log = new Logger('some test controller');
     const typeError = new TypeError('test error');
 
-    t.throws(() => log.throw(typeError), TypeError);
+    t.throws(() => log.throw(typeError), { instanceOf: TypeError });
     sandbox.assert.calledOnce(console.error);
     sandbox.assert.notCalled(console.log);
 });
