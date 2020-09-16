@@ -1,5 +1,9 @@
 # Changelog
 
+## 16-September-2020 **1.0.6**
+
+* Bump dependencies versions
+
 ## 24-June-2019 **1.0.5**
 
 * Bump dependencies versions
