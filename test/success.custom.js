@@ -3,7 +3,7 @@
 const Logger = require('..');
 const sinon = require('sinon');
 const test = require('ava');
-const uuidV4 = require('uuid/v4');
+const uuid = require('uuid');
 
 test.before(() => Logger.configure({
     dateFormat: null,
@@ -17,7 +17,7 @@ test.beforeEach(t => {
     t.context.logSpy = sinon.spy(console, 'log');
 
     t.context.ctx = {
-        requestId: uuidV4(),
+        requestId: uuid.v4(),
         source: __filename
     };
     t.context.message = 'smth happened';

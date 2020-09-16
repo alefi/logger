@@ -2,12 +2,12 @@
 
 const _ = require('lodash');
 const assert = require('assert');
-const { inspect } = require('util');
-const levels = require('./levels');
 const moment = require('moment');
 const stringify = require('json-stringify-safe');
-const transports = require('./transports');
+const util = require('util');
 
+const levels = require('./levels');
+const transports = require('./transports');
 const defaultConfig = require('./config/default');
 const levelsList = _.sortBy( _.keys(levels), (a, b) => levels[ a ] > levels[ b ] );
 
@@ -155,7 +155,7 @@ class Logger {
         if (hasMeta && _config.prettyPrint) {
             shapedMeta = stringify(_meta);
         } else if (hasMeta) {
-            shapedMeta = inspect(_meta);
+            shapedMeta = util.inspect(_meta);
         }
 
         return shapedMeta;
